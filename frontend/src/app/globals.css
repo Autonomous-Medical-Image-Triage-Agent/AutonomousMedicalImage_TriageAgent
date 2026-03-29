@@ -263,3 +263,4 @@ body {
   .no-print { display: none !important; }
   .print-break { page-break-before: always; }
 }
+/* print styles updated */
