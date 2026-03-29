@@ -1,3 +1,4 @@
+// MediScan AI — Urgency badge component
 import clsx from "clsx";
 import type { Urgency } from "@/lib/types";
 import { URGENCY_CONFIG } from "@/lib/types";
