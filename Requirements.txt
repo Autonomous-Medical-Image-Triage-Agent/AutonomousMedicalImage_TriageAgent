@@ -16,3 +16,4 @@ langgraph>=0.0.30
 gradio>=4.0.0
 openai>=1.0.0
 faiss-cpu>=1.7.4
+
