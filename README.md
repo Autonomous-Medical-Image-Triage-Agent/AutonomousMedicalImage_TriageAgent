@@ -1,21 +1,25 @@
-# Autonomous Medical Image Triage Agent
+# MediScan AI — Autonomous Medical Image Triage Agent
 
 **Multi-Label Chest X-Ray Classification using Deep Learning + RAG + Agentic AI**
 
-A CNN-based pathology detection system that analyzes chest X-rays to detect multiple pathological conditions, prioritize cases by urgency, and provide evidence-based recommendations using RAG pipeline.
+A full-stack autonomous triage system that analyzes chest X-rays to detect 5 critical pathologies, assign urgency levels, route to the right specialist, and provide evidence-based clinical recommendations — all in under 2 seconds.
 
 ## Authors
 - Vishal Kumar
 - Deepashree Srinivasa Rao Rannore
-
-**Course:** DS 5500 - Data Science Capstone
-**Institution:** Northeastern University
 
 ---
 
 ## Problem Statement
 
 Radiologists are overwhelmed with massive scan volumes, and critical cases often wait hours in the queue alongside routine cases. Our system analyzes chest X-rays to detect pathological conditions, prioritize life-threatening cases for immediate attention, and provide evidence-based clinical recommendations.
+
+---
+
+## Live Demo
+
+- **Frontend**: Next.js 14 app with split-panel analysis, interactive report, and RAG chatbot
+- **Backend**: FastAPI with 4-model PyTorch ensemble + OpenRouter-powered chat
 
 ---
 
@@ -78,28 +82,52 @@ Radiologists are overwhelmed with massive scan volumes, and critical cases often
 - **Cosine Annealing with Warm Restarts**: Better LR scheduling
 - **Label Smoothing**: Reduces overconfidence on uncertain medical labels
 - **Class-Weighted Loss**: Handles class imbalance via BCEWithLogitsLoss
-- **RAG Pipeline**: Evidence-based clinical recommendations
+- **RAG Chatbot**: Scoped medical Q&A powered by OpenRouter
 - **Agentic Workflow**: Autonomous triage and specialist routing
+- **Interactive UI**: FAANG-level Next.js frontend with dark/light mode
+
+---
+
+## Tech Stack
+
+### Frontend
+- Next.js 14 (App Router)
+- TypeScript + Tailwind CSS
+- Framer Motion
+- Recharts
+
+### Backend
+- FastAPI + Uvicorn
+- PyTorch (DenseNet-121, EfficientNet-B0/B3, ResNet-50)
+- OpenRouter API (Claude / GPT-4o-mini)
+- httpx, Pillow
 
 ---
 
 ## Project Structure
 
 ```
-├── notebooks/
-│   ├── chexpert_classification_final.ipynb    # Training notebook
-│   ├── rag_agentic_final.ipynb                # RAG + Agentic pipeline
-│   └── frontend.ipynb                         # Demo frontend
-├── outputs/
-│   ├── densenet_121_best.pth
-│   ├── efficientnet_b0_best.pth
-│   ├── efficientnet_b3_best.pth
-│   ├── resnet_50_best.pth
-│   ├── training_history.json
-│   ├── model_comparison.csv
-│   ├── training_curves.png
-│   ├── model_comparison.png
-│   └── per_class_all_models.png
+├── backend/
+│   ├── main.py              # FastAPI server with /analyze and /chat endpoints
+│   ├── pipeline.py          # 4-model ensemble inference pipeline
+│   └── requirements.txt
+├── frontend/
+│   └── src/
+│       ├── app/
+│       │   ├── page.tsx         # Root page
+│       │   ├── layout.tsx       # Root layout
+│       │   ├── globals.css      # Theme + animations
+│       │   └── report/page.tsx  # Full interactive report page
+│       ├── components/
+│       │   ├── LandingHero.tsx       # Landing page
+│       │   ├── XrayApp.tsx           # Split-panel analysis app
+│       │   ├── FloatingChat.tsx      # RAG chatbot widget
+│       │   ├── ThemeToggle.tsx       # Dark/light mode toggle
+│       │   ├── PathologyChart.tsx    # Confidence bar chart
+│       │   └── ModelAgreementChart.tsx
+│       └── lib/types.ts         # TypeScript interfaces
+├── chexpert_classification_final.ipynb   # Model training
+├── rag_agentic_final.ipynb               # RAG pipeline
 └── README.md
 ```
 
@@ -107,40 +135,21 @@ Radiologists are overwhelmed with massive scan volumes, and critical cases often
 
 ## Setup & Usage
 
-### 1. Clone Repository
+### Backend
 ```bash
-git clone https://github.com/zavisk/AutonomousMedicalImage_TriageAgent.git
+cd backend
+pip install -r requirements.txt
+TOKENIZERS_PARALLELISM=false uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
-### 2. Open in Google Colab
-- Upload notebook to Colab
-- Select GPU runtime (A100 recommended)
-- Mount Google Drive for saving checkpoints
-
-### 3. Configure Kaggle API
-```python
-kaggle_credentials = {
-    "username": "YOUR_USERNAME",
-    "key": "YOUR_API_KEY"
-}
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-### 4. Run All Cells
-Training takes ~2-3 hours per model on A100 GPU with early stopping.
-
----
-
-## Technologies
-
-- PyTorch
-- torchvision
-- scikit-learn
-- pandas
-- matplotlib
-- LangChain
-- ChromaDB
-- Sentence Transformers
-- Gradio
+Open http://localhost:3000
 
 ---
 
