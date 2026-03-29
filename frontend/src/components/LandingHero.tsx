@@ -1,5 +1,5 @@
 "use client";
-
+// MediScan AI — Landing hero page with animated demo preview
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Activity, Brain, Zap, ShieldCheck, ArrowRight, Cpu, Scan, Layers, ChevronDown } from "lucide-react";
 import { useRef } from "react";
