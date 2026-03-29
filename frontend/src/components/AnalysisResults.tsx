@@ -1,3 +1,4 @@
+// MediScan AI — Analysis results
 "use client";
 
 import { useState } from "react";
