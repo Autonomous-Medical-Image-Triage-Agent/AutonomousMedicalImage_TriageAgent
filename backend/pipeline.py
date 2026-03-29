@@ -485,3 +485,4 @@ class TriagePipeline:
             "alerts": alerts,
             "report": state["report"],
         }
+# End-to-end latency < 2 seconds
