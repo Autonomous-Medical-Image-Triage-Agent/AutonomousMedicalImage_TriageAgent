@@ -1,5 +1,5 @@
 "use client";
-
+// MediScan AI — Split-panel X-Ray analysis component
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
