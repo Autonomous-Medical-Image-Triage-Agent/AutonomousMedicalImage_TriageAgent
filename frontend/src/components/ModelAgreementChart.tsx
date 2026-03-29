@@ -1,3 +1,4 @@
+// MediScan AI — Model agreement visualization
 "use client";
 
 import {
