@@ -1,3 +1,4 @@
+// MediScan AI — Chat interface
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
