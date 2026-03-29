@@ -1,3 +1,5 @@
+# MediScan AI — Autonomous Chest X-Ray Triage Backend
+# FastAPI server with ML pipeline and RAG-powered chat
 import os
 import io
 import uuid
