@@ -219,3 +219,5 @@ async def chat(req: ChatRequest):
         reply = f"Sorry, the AI assistant is temporarily unavailable. ({e})"
 
     return JSONResponse(content={"reply": reply})
+
+# CORS configured for Vercel deployment
