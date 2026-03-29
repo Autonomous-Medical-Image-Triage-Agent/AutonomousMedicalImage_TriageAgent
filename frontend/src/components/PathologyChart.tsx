@@ -1,3 +1,4 @@
+// MediScan AI — Pathology confidence chart
 "use client";
 
 import {
