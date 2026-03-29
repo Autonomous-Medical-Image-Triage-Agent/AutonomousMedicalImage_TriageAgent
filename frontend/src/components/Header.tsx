@@ -1,3 +1,4 @@
+// MediScan AI — Header component
 import { Activity } from "lucide-react";
 
 export default function Header() {
