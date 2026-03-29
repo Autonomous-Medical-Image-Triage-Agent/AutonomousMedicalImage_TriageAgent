@@ -91,3 +91,4 @@ export default function PathologyChart({ predictions }: Props) {
     </div>
   );
 }
+
