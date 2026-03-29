@@ -57,3 +57,4 @@ export const PATHOLOGY_COLORS: Record<string, string> = {
   Edema: "#8b5cf6",
   "Pleural Effusion": "#06b6d4",
 };
+
