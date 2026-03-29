@@ -1,5 +1,5 @@
 "use client";
-
+// MediScan AI — RAG-powered floating chatbot widget
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Activity, Minimize2, Moon, Maximize2 } from "lucide-react";
