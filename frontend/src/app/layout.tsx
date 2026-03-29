@@ -1,3 +1,4 @@
+// MediScan AI — Root layout
 import type { Metadata } from "next";
 import "./globals.css";
 
