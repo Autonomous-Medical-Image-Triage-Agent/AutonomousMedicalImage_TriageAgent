@@ -606,3 +606,4 @@ export default function XrayApp({ onBack }: Props) {
     </div>
   );
 }
+
