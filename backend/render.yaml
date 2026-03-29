@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: medical-triage-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: MODEL_DIR
+        value: /app/models
+      - key: ALLOWED_ORIGINS
+        sync: false   # Set in Render dashboard to your Vercel URL
+    disk:
+      name: models
+      mountPath: /app/models
+      sizeGB: 5
+    healthCheckPath: /health
