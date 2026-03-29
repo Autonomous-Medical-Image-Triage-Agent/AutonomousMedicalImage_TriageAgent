@@ -1,3 +1,4 @@
+// MediScan AI — Root page
 "use client";
 
 import { useState } from "react";
