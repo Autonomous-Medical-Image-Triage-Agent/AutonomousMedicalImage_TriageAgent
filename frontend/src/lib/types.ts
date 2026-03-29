@@ -1,3 +1,4 @@
+// MediScan AI — Type definitions
 export type Urgency = "CRITICAL" | "URGENT" | "MODERATE" | "ROUTINE";
 
 export interface TriageResult {
