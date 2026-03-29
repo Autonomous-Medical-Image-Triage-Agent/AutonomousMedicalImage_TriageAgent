@@ -1,3 +1,4 @@
+// MediScan AI — Results card
 "use client";
 
 import { useState } from "react";
