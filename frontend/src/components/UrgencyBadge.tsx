@@ -27,3 +27,4 @@ export default function UrgencyBadge({ urgency, pulse = false, size = "sm" }: Pr
     </span>
   );
 }
+
