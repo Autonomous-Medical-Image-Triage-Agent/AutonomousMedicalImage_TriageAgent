@@ -1,3 +1,4 @@
+// MediScan AI — Image uploader
 "use client";
 
 import { useRef, useState, useCallback } from "react";
