@@ -36,6 +36,13 @@ app = FastAPI(
     version="1.0.0",
 )
 
+
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Pre-loading triage pipeline on startup...")
+    get_pipeline()
+    logger.info("Pipeline pre-loaded and ready.")
+
 allowed_origins = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
 
 app.add_middleware(
