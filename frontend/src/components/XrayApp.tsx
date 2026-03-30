@@ -172,13 +172,14 @@ export default function XrayApp({ onBack }: Props) {
               onDrop={e => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files[0]; if (f) acceptFile(f); }}
               className="relative rounded-2xl overflow-hidden transition-all duration-200 border-2 border-dashed"
               style={{
-                borderColor: dragOver ? "var(--blue)" : preview ? "var(--border2)" : "var(--border)",
-                background: dragOver ? "var(--blue-lo)" : "transparent",
+                borderColor: dragOver ? "var(--blue)" : preview ? "var(--border2)" : "rgba(96,165,250,0.2)",
+                background: dragOver ? "var(--blue-lo)" : preview ? "transparent" : "var(--surface)",
                 cursor: preview ? "default" : "pointer",
+                minHeight: "160px",
               }}>
               <AnimatePresence mode="wait">
                 {!preview ? (
-                  <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  <motion.div key="empty" initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     className="flex flex-col items-center justify-center gap-4 py-14 px-6 text-center">
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center float"
                       style={{ background: "var(--surface)", border: "1px solid var(--border2)" }}>
