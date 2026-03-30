@@ -15,6 +15,10 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from torchvision import models
 from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
+
+# Use all available CPU cores for torch operations
+torch.set_num_threads(max(1, torch.get_num_threads()))
 
 logger = logging.getLogger(__name__)
 
@@ -360,13 +364,19 @@ class TriagePipeline:
         individual: Dict[str, List[float]] = {label: [] for label in TARGET_LABELS}
         all_probs: List[np.ndarray] = []
 
-        with torch.no_grad():
-            for name, model in self.models.items():
+        def run_model(name_model):
+            name, model = name_model
+            with torch.no_grad():
                 logits = model(tensor)
-                probs = torch.sigmoid(logits).cpu().numpy()[0]
-                all_probs.append(probs)
-                for i, label in enumerate(TARGET_LABELS):
-                    individual[label].append(float(probs[i]))
+                return torch.sigmoid(logits).cpu().numpy()[0]
+
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            results = list(executor.map(run_model, self.models.items()))
+
+        for probs in results:
+            all_probs.append(probs)
+            for i, label in enumerate(TARGET_LABELS):
+                individual[label].append(float(probs[i]))
 
         avg = np.mean(all_probs, axis=0)
         predictions = {label: float(avg[i]) for i, label in enumerate(TARGET_LABELS)}
