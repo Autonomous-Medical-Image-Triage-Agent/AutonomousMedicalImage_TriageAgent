@@ -21,12 +21,12 @@ interface Props {
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload?.length) return null;
   const { name, value } = payload[0];
-  const positive = value >= 0.5;
+  const positive = value >= 50;
   return (
     <div className="bg-[#1a1d27] border border-[#2a2d3a] rounded-lg px-3 py-2 text-xs">
       <p className="text-slate-300 font-medium">{name}</p>
       <p className={positive ? "text-red-400 font-bold" : "text-green-400 font-bold"}>
-        {(value * 100).toFixed(1)}% — {positive ? "POSITIVE" : "Negative"}
+        {value.toFixed(1)}% — {positive ? "POSITIVE" : "Negative"}
       </p>
     </div>
   );
