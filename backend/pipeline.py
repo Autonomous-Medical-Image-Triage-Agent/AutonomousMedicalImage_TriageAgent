@@ -15,10 +15,8 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from torchvision import models
 from PIL import Image
-from concurrent.futures import ThreadPoolExecutor
-
-# Use all available CPU cores for torch operations
-torch.set_num_threads(max(1, torch.get_num_threads()))
+# Limit threads to reduce memory overhead on Railway
+torch.set_num_threads(2)
 
 logger = logging.getLogger(__name__)
 
@@ -355,6 +353,10 @@ class TriagePipeline:
                 logger.warning("Checkpoint not found: %s — using random weights", ckpt_path)
             model.to(self.device)
             model.eval()
+            # Apply dynamic quantization to reduce memory ~4x on CPU
+            model = torch.quantization.quantize_dynamic(
+                model, {torch.nn.Linear, torch.nn.Conv2d}, dtype=torch.qint8
+            )
             self.models[name] = model
 
     # ── inference ────────────────────────────────────────────────────────────
@@ -364,19 +366,13 @@ class TriagePipeline:
         individual: Dict[str, List[float]] = {label: [] for label in TARGET_LABELS}
         all_probs: List[np.ndarray] = []
 
-        def run_model(name_model):
-            name, model = name_model
-            with torch.no_grad():
+        with torch.no_grad():
+            for name, model in self.models.items():
                 logits = model(tensor)
-                return torch.sigmoid(logits).cpu().numpy()[0]
-
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            results = list(executor.map(run_model, self.models.items()))
-
-        for probs in results:
-            all_probs.append(probs)
-            for i, label in enumerate(TARGET_LABELS):
-                individual[label].append(float(probs[i]))
+                probs = torch.sigmoid(logits).cpu().numpy()[0]
+                all_probs.append(probs)
+                for i, label in enumerate(TARGET_LABELS):
+                    individual[label].append(float(probs[i]))
 
         avg = np.mean(all_probs, axis=0)
         predictions = {label: float(avg[i]) for i, label in enumerate(TARGET_LABELS)}
