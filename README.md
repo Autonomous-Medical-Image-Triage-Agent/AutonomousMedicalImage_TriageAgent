@@ -23,6 +23,12 @@ A full-stack autonomous triage system that analyzes chest X-rays to detect 5 cri
 
 ---
 
+## Screenshot
+
+![MediScan AI — Ensemble triage analysis showing URGENT classification, pathology confidence scores, and specialist routing](docs/screenshots/06_analysis.png)
+
+---
+
 ## Problem Statement
 
 Radiologists are overwhelmed with massive scan volumes, and critical cases often wait hours in the queue alongside routine cases. MediScan AI analyzes chest X-rays to:
